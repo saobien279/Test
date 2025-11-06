@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cake-Shop - Đăng Nhập & Đăng Ký</title>
+    <title>Cake-Shop - Thế giới bánh ngọt tuyệt vời</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
     <style>
@@ -22,6 +22,8 @@
             --card-bg: #ffffff;
             --shadow: rgba(255, 107, 139, 0.15);
             --transition: all 0.3s ease;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         * {
@@ -35,22 +37,21 @@
             background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            padding: 0;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         body::before {
             content: '';
-            position: absolute;
+            position: fixed;
             top: -50%;
             right: -50%;
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            animation: float 6s ease-in-out infinite;
+            animation: float 15s ease-in-out infinite;
+            z-index: -1;
         }
 
         @keyframes float {
@@ -60,28 +61,227 @@
 
         .container {
             width: 100%;
-            max-width: 450px;
-            perspective: 1000px;
-            z-index: 2;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--glass-border);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .logo h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .nav-menu {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            border-radius: 15px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.3);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            background: var(--glass);
+            margin-top: auto;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            flex-grow: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .user-role {
+            color: var(--text);
+            font-size: 0.8rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-text h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .welcome-text p {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 15px;
+            padding: 12px 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            width: 350px;
+        }
+
+        .search-bar i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        /* Auth Styles */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
         }
 
         .auth-card {
             background: var(--card-bg);
             border-radius: 25px;
-            box-shadow: 0 20px 40px var(--shadow);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            width: 450px;
+            max-width: 90%;
             transition: var(--transition);
-            transform-style: preserve-3d;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
-            max-height: 90vh; /* Giới hạn chiều cao tối đa */
-            display: flex;
-            flex-direction: column;
         }
 
         .auth-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 30px 60px rgba(255, 107, 139, 0.25);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
         }
 
         .card-header {
@@ -91,7 +291,6 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            flex-shrink: 0; /* Không co lại khi card-body cuộn */
         }
 
         .card-header::before {
@@ -110,39 +309,9 @@
             100% { transform: rotate(360deg); }
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .logo i {
-            font-size: 2.5rem;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-        }
-
-        .logo h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
-            font-weight: 700;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .card-header p {
-            opacity: 0.9;
-            font-size: 1rem;
-            font-weight: 300;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
         .card-body {
             padding: 40px 35px;
             background: var(--light);
-            flex-grow: 1; /* Chiếm không gian còn lại */
-            overflow-y: auto; /* Cho phép cuộn bên trong card-body */
-            max-height: calc(90vh - 200px); /* Trừ đi chiều cao header */
         }
 
         .form-box {
@@ -280,6 +449,210 @@
             width: 100%;
         }
 
+        /* Cake Grid Styles */
+        .cakes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .cake-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cake-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .cake-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .cake-info {
+            padding: 20px;
+        }
+
+        .cake-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .cake-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .cake-price {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .cake-description {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .add-cake-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 10px 30px rgba(255, 107, 139, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .add-cake-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 15px 40px rgba(255, 107, 139, 0.6);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .page-btn {
+            padding: 10px 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .page-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .page-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Modal Styles */
+        .cake-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            margin-top: 20px;
+        }
+
+        #modal-cake-image {
+            width: 100%;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        #modal-cake-name {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+        }
+
+        #modal-cake-category, #modal-cake-price, #modal-cake-description {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        #modal-cake-creator {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-style: italic;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Message Styles */
         #message {
             padding: 20px;
             margin-bottom: 25px;
@@ -314,90 +687,6 @@
             display: none !important;
         }
 
-        /* Profile Styles */
-        #profile-area {
-            text-align: center;
-            animation: fadeIn 0.8s ease;
-        }
-
-        .profile-avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            margin: 0 auto 25px;
-            border: 6px solid var(--primary);
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-            box-shadow: 0 12px 30px var(--shadow);
-            position: relative;
-        }
-
-        .profile-avatar::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            z-index: -1;
-            opacity: 0.3;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.05); opacity: 0.5; }
-        }
-
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-info {
-            margin-bottom: 30px;
-        }
-
-        .profile-info h2 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-        }
-
-        .profile-detail {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 10px;
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        .profile-detail i {
-            color: var(--primary);
-            width: 20px;
-            font-size: 1.1rem;
-        }
-
-        .btn-logout {
-            background: linear-gradient(135deg, var(--danger), #d63384);
-            margin-top: 15px;
-        }
-
-        .btn-logout:hover {
-            box-shadow: 0 12px 30px rgba(239, 71, 111, 0.4);
-        }
-
         /* Loading Animation */
         .loading {
             display: inline-block;
@@ -415,278 +704,127 @@
 
         /* Cake Decoration */
         .cake-decoration {
-            position: absolute;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.3);
-            z-index: 1;
-            animation: float 5s ease-in-out infinite;
-        }
-
-        .cake-1 { top: 10%; left: 10%; animation-delay: 0s; }
-        .cake-2 { top: 20%; right: 15%; animation-delay: 1s; }
-        .cake-3 { bottom: 15%; left: 20%; animation-delay: 2s; }
-        .cake-4 { bottom: 25%; right: 10%; animation-delay: 3s; }
-
-        /* NEW STYLES FOR CAKE FEATURES */
-        .nav-tabs {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #ffe4ec;
-        }
-
-        .nav-tab {
-            flex: 1;
-            text-align: center;
-            padding: 12px 0;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-tab::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-
-        .nav-tab.active {
-            color: var(--primary);
-        }
-
-        .nav-tab.active::after {
-            width: 100%;
-        }
-
-        .nav-tab:hover {
-            color: var(--primary);
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .cake-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(255, 107, 139, 0.1);
-            transition: var(--transition);
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
-
-        .cake-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(255, 107, 139, 0.2);
-        }
-
-        .cake-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .cake-info {
-            padding: 15px;
-        }
-
-        .cake-name {
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-
-        .cake-category {
-            color: var(--primary);
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
-
-        .cake-price {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .cake-description {
-            color: var(--text);
-            font-size: 0.9rem;
-            margin-top: 10px;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .page-btn {
-            padding: 8px 15px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .page-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        .page-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .cake-detail-modal {
-            display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.2);
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
         }
 
-        .modal-content {
+        .cake-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .cake-2 { top: 20%; right: 10%; animation-delay: 2s; }
+        .cake-3 { bottom: 15%; left: 8%; animation-delay: 4s; }
+        .cake-4 { bottom: 25%; right: 5%; animation-delay: 6s; }
+        .cake-5 { top: 50%; left: 15%; animation-delay: 1s; }
+        .cake-6 { top: 60%; right: 20%; animation-delay: 3s; }
+
+        /* Profile Card */
+        .profile-card {
             background: white;
             border-radius: 20px;
             padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             max-width: 500px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideDown 0.3s ease;
-            max-height: 90vh;
-            overflow-y: auto;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid var(--primary);
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
         }
 
-        .close-modal {
-            float: right;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text);
-        }
-
-        .modal-body {
-            margin-top: 20px;
-        }
-
-        #modal-cake-image {
+        .profile-avatar-large img {
             width: 100%;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            max-height: 300px;
+            height: 100%;
             object-fit: cover;
         }
 
-        #modal-cake-name {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
+        .profile-details {
+            margin-top: 20px;
         }
 
-        #modal-cake-category, #modal-cake-price, #modal-cake-description {
-            margin-bottom: 10px;
-        }
-
-        #modal-cake-creator {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            font-style: italic;
+        .profile-detail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
             color: var(--text);
+            font-weight: 500;
         }
 
-        /* Scrollable cakes container */
-        .scrollable-container {
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 10px;
-            margin-bottom: 20px;
-        }
-
-        /* Custom scrollbar */
-        .scrollable-container::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .scrollable-container::-webkit-scrollbar-track {
-            background: #ffe4ec;
-            border-radius: 10px;
-        }
-
-        .scrollable-container::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        .scrollable-container::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
+        .btn-logout {
+            background: linear-gradient(135deg, var(--danger), #d63384);
+            margin-top: 25px;
         }
 
         /* Responsive */
-        @media (max-width: 480px) {
-            .container {
-                max-width: 100%;
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 250px;
             }
             
-            .card-body {
-                padding: 30px 25px;
+            .main-content {
+                padding: 30px;
             }
             
-            .card-header {
-                padding: 30px 20px;
+            .cakes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
-            
-            .logo h1 {
-                font-size: 2.2rem;
-            }
-            
-            .form-control {
-                padding: 16px 16px 16px 50px;
-            }
+        }
 
-            .nav-tabs {
+        @media (max-width: 768px) {
+            .container {
                 flex-direction: column;
             }
-
-            .nav-tab {
-                padding: 10px;
+            
+            .sidebar {
+                width: 100%;
+                padding: 20px;
             }
-
-            .scrollable-container {
-                max-height: 300px;
+            
+            .nav-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .nav-item {
+                white-space: nowrap;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .cakes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .add-cake-btn {
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
@@ -697,6 +835,8 @@
     <div class="cake-decoration cake-2">🧁</div>
     <div class="cake-decoration cake-3">🍰</div>
     <div class="cake-decoration cake-4">🥮</div>
+    <div class="cake-decoration cake-5">🍮</div>
+    <div class="cake-decoration cake-6">🍩</div>
 
     <!-- Cake Detail Modal -->
     <div class="cake-detail-modal" id="cake-detail-modal">
@@ -714,148 +854,199 @@
     </div>
 
     <div class="container">
-        <div class="auth-card">
-            <div class="card-header">
-                <div class="logo">
-                    <i class="fas fa-birthday-cake"></i>
-                    <h1>Cake-Shop</h1>
-                </div>
-                <p>Thế giới bánh ngọt tuyệt vời</p>
+        <!-- Sidebar Navigation -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class="fas fa-birthday-cake"></i>
+                <h1>Cake-Shop</h1>
             </div>
             
-            <div class="card-body">
-                <div id="message" class="hidden"></div>
+            <div class="nav-menu">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Trang chủ</span>
+                </a>
+                <a href="#" class="nav-item" data-section="cakes">
+                    <i class="fas fa-utensils"></i>
+                    <span>Danh sách bánh</span>
+                </a>
+                <a href="#" class="nav-item" data-section="add-cake">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Thêm bánh mới</span>
+                </a>
+                <a href="#" class="nav-item" data-section="profile">
+                    <i class="fas fa-user"></i>
+                    <span>Thông tin cá nhân</span>
+                </a>
+            </div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img id="user-avatar-img" src="" alt="Avatar">
+                    <i class="fas fa-user" id="user-avatar-icon"></i>
+                </div>
+                <div class="user-info">
+                    <div class="user-name" id="user-name">Thành viên</div>
+                    <div class="user-role" id="user-email">Đang tải...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="header">
+                <div class="welcome-text">
+                    <h2 id="welcome-message">Chào mừng đến với Cake-Shop</h2>
+                    <p id="welcome-subtitle">Thế giới bánh ngọt tuyệt vời</p>
+                </div>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Tìm kiếm bánh...">
+                </div>
+            </div>
+            
+            <!-- Auth Section -->
+            <div class="content-section active" id="auth-section">
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="card-header">
+                            <div class="logo">
+                                <i class="fas fa-birthday-cake"></i>
+                                <h1>Cake-Shop</h1>
+                            </div>
+                            <p>Thế giới bánh ngọt tuyệt vời</p>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div id="message" class="hidden"></div>
 
-                <!-- Login Form -->
-                <div class="form-box active" id="login-box">
-                    <form id="login-form">
-                        <div class="form-group">
-                            <i class="fas fa-user form-icon"></i>
-                            <input type="text" id="login-username" class="form-control" placeholder="Tên đăng nhập" required>
+                            <!-- Login Form -->
+                            <div class="form-box active" id="login-box">
+                                <form id="login-form">
+                                    <div class="form-group">
+                                        <i class="fas fa-user form-icon"></i>
+                                        <input type="text" id="login-username" class="form-control" placeholder="Tên đăng nhập" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fas fa-lock form-icon"></i>
+                                        <input type="password" id="login-password" class="form-control" placeholder="Mật khẩu" required>
+                                    </div>
+                                    <button type="submit" class="btn" id="login-btn">
+                                        <span id="login-text">Đăng Nhập</span>
+                                        <div id="login-loading" class="loading" style="display: none;"></div>
+                                    </button>
+                                </form>
+                                <div class="form-footer">
+                                    <p>Chưa có tài khoản? <a href="#" id="show-register">Đăng ký ngay</a></p>
+                                </div>
+                            </div>
+
+                            <!-- Register Form -->
+                            <div class="form-box" id="register-box">
+                                <form id="register-form">
+                                    <div class="form-group">
+                                        <i class="fas fa-user form-icon"></i>
+                                        <input type="text" id="register-username" class="form-control" placeholder="Tên đăng nhập" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fas fa-envelope form-icon"></i>
+                                        <input type="email" id="register-email" class="form-control" placeholder="Email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fas fa-lock form-icon"></i>
+                                        <input type="password" id="register-password" class="form-control" placeholder="Mật khẩu (ít nhất 6 ký tự)" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fas fa-id-card form-icon"></i>
+                                        <input type="text" id="register-fullname" class="form-control" placeholder="Họ và Tên" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fas fa-image form-icon"></i>
+                                        <input type="url" id="register-avatar" class="form-control" placeholder="URL Avatar (Không bắt buộc)">
+                                    </div>
+                                    <button type="submit" class="btn" id="register-btn">
+                                        <span id="register-text">Đăng Ký</span>
+                                        <div id="register-loading" class="loading" style="display: none;"></div>
+                                    </button>
+                                </form>
+                                <div class="form-footer">
+                                    <p>Đã có tài khoản? <a href="#" id="show-login">Đăng nhập ngay</a></p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <i class="fas fa-lock form-icon"></i>
-                            <input type="password" id="login-password" class="form-control" placeholder="Mật khẩu" required>
-                        </div>
-                        <button type="submit" class="btn" id="login-btn">
-                            <span id="login-text">Đăng Nhập</span>
-                            <div id="login-loading" class="loading" style="display: none;"></div>
-                        </button>
-                    </form>
-                    <div class="form-footer">
-                        <p>Chưa có tài khoản? <a href="#" id="show-register">Đăng ký ngay</a></p>
                     </div>
                 </div>
-
-                <!-- Register Form -->
-                <div class="form-box" id="register-box">
-                    <form id="register-form">
-                        <div class="form-group">
-                            <i class="fas fa-user form-icon"></i>
-                            <input type="text" id="register-username" class="form-control" placeholder="Tên đăng nhập" required>
-                        </div>
-                        <div class="form-group">
-                            <i class="fas fa-envelope form-icon"></i>
-                            <input type="email" id="register-email" class="form-control" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <i class="fas fa-lock form-icon"></i>
-                            <input type="password" id="register-password" class="form-control" placeholder="Mật khẩu (ít nhất 6 ký tự)" required>
-                        </div>
-                        <div class="form-group">
-                            <i class="fas fa-id-card form-icon"></i>
-                            <input type="text" id="register-fullname" class="form-control" placeholder="Họ và Tên" required>
-                        </div>
-                        <div class="form-group">
-                            <i class="fas fa-image form-icon"></i>
-                            <input type="url" id="register-avatar" class="form-control" placeholder="URL Avatar (Không bắt buộc)">
-                        </div>
-                        <button type="submit" class="btn" id="register-btn">
-                            <span id="register-text">Đăng Ký</span>
-                            <div id="register-loading" class="loading" style="display: none;"></div>
-                        </button>
-                    </form>
-                    <div class="form-footer">
-                        <p>Đã có tài khoản? <a href="#" id="show-login">Đăng nhập ngay</a></p>
-                    </div>
+            </div>
+            
+            <!-- Dashboard Section -->
+            <div class="content-section" id="dashboard-section">
+                <h2 class="section-title"><i class="fas fa-home"></i> Tổng quan</h2>
+                <div class="stats-cards">
+                    <!-- Thống kê sẽ được thêm ở đây -->
                 </div>
-
-                <!-- Profile Area with Cake Features -->
-                <div id="profile-area" class="hidden">
-                    <div class="profile-avatar">
-                        <img id="profile-avatar-img" src="" alt="Avatar">
-                        <i class="fas fa-user" id="profile-avatar-icon"></i>
+            </div>
+            
+            <!-- Cakes Section -->
+            <div class="content-section" id="cakes-section">
+                <h2 class="section-title"><i class="fas fa-utensils"></i> Danh sách bánh</h2>
+                <div class="cakes-grid" id="cakes-container">
+                    <!-- Cakes will be loaded here -->
+                </div>
+                <div class="pagination">
+                    <button class="page-btn" id="prev-page">Trang trước</button>
+                    <span id="page-info">Trang 1</span>
+                    <button class="page-btn" id="next-page">Trang sau</button>
+                </div>
+            </div>
+            
+            <!-- Add Cake Section -->
+            <div class="content-section" id="add-cake-section">
+                <h2 class="section-title"><i class="fas fa-plus-circle"></i> Thêm bánh mới</h2>
+                <form id="add-cake-form">
+                    <div class="form-group">
+                        <i class="fas fa-pencil-alt form-icon"></i>
+                        <input type="text" id="cake-name" class="form-control" placeholder="Tên bánh" required>
                     </div>
-                    <div class="profile-info">
-                        <h2 id="profile-name">Thành viên</h2>
-                        <div class="profile-detail">
-                            <i class="fas fa-envelope"></i>
-                            <span id="profile-email">email@example.com</span>
+                    <div class="form-group">
+                        <i class="fas fa-tag form-icon"></i>
+                        <input type="text" id="cake-category" class="form-control" placeholder="Danh mục" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-money-bill-wave form-icon"></i>
+                        <input type="number" id="cake-price" class="form-control" placeholder="Giá" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-image form-icon"></i>
+                        <input type="url" id="cake-image" class="form-control" placeholder="URL hình ảnh">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-align-left form-icon"></i>
+                        <textarea id="cake-description" class="form-control" placeholder="Mô tả" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn">
+                        <i class="fas fa-plus"></i> Thêm Bánh
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Profile Section -->
+            <div class="content-section" id="profile-section">
+                <h2 class="section-title"><i class="fas fa-user"></i> Thông tin cá nhân</h2>
+                <div class="profile-details">
+                    <div class="profile-card">
+                        <div class="profile-avatar-large">
+                            <img id="profile-avatar-img" src="" alt="Avatar">
+                            <i class="fas fa-user" id="profile-avatar-icon"></i>
                         </div>
-                        <div class="profile-detail">
-                            <i class="fas fa-user-tag"></i>
-                            <span id="profile-username">username</span>
-                        </div>
-                    </div>
-
-                    <!-- Navigation Tabs -->
-                    <div class="nav-tabs">
-                        <button class="nav-tab active" data-tab="cakes-list-tab">Danh Sách Bánh</button>
-                        <button class="nav-tab" data-tab="add-cake-tab">Thêm Bánh</button>
-                        <button class="nav-tab" data-tab="profile-tab">Thông Tin</button>
-                    </div>
-
-                    <!-- Tab Contents -->
-                    <div class="tab-content active" id="cakes-list-tab">
-                        <h3>Danh sách bánh ngọt</h3>
-                        <div class="scrollable-container" id="cakes-container">
-                            <!-- Cakes will be loaded here -->
-                        </div>
-                        <div class="pagination">
-                            <button class="page-btn" id="prev-page">Trang trước</button>
-                            <span id="page-info">Trang 1</span>
-                            <button class="page-btn" id="next-page">Trang sau</button>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="add-cake-tab">
-                        <h3>Thêm bánh mới</h3>
-                        <form id="add-cake-form">
-                            <div class="form-group">
-                                <i class="fas fa-pencil-alt form-icon"></i>
-                                <input type="text" id="cake-name" class="form-control" placeholder="Tên bánh" required>
-                            </div>
-                            <div class="form-group">
-                                <i class="fas fa-tag form-icon"></i>
-                                <input type="text" id="cake-category" class="form-control" placeholder="Danh mục" required>
-                            </div>
-                            <div class="form-group">
-                                <i class="fas fa-money-bill-wave form-icon"></i>
-                                <input type="number" id="cake-price" class="form-control" placeholder="Giá" required>
-                            </div>
-                            <div class="form-group">
-                                <i class="fas fa-image form-icon"></i>
-                                <input type="url" id="cake-image" class="form-control" placeholder="URL hình ảnh">
-                            </div>
-                            <div class="form-group">
-                                <i class="fas fa-align-left form-icon"></i>
-                                <textarea id="cake-description" class="form-control" placeholder="Mô tả" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn">
-                                <i class="fas fa-plus"></i> Thêm Bánh
-                            </button>
-                        </form>
-                    </div>
-
-                    <div class="tab-content" id="profile-tab">
                         <div class="profile-info">
+                            <h3 id="profile-name">Thành viên</h3>
                             <div class="profile-detail">
                                 <i class="fas fa-envelope"></i>
-                                <span id="profile-email-tab">email@example.com</span>
+                                <span id="profile-email">email@example.com</span>
                             </div>
                             <div class="profile-detail">
                                 <i class="fas fa-user-tag"></i>
-                                <span id="profile-username-tab">username</span>
+                                <span id="profile-username">username</span>
                             </div>
                         </div>
                         <button class="btn btn-logout" id="logout-button">
@@ -867,16 +1058,22 @@
             </div>
         </div>
     </div>
+    
+    <!-- Add Cake Button -->
+    <div class="add-cake-btn" id="add-cake-button">
+        <i class="fas fa-plus"></i>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const BASE_URL = 'https://banhngot.fitlhu.com';
+            
+            // DOM Elements
             const loginForm = document.getElementById('login-form');
             const registerForm = document.getElementById('register-form');
             const addCakeForm = document.getElementById('add-cake-form');
             const loginBox = document.getElementById('login-box');
             const registerBox = document.getElementById('register-box');
-            const profileArea = document.getElementById('profile-area');
             const messageBox = document.getElementById('message');
             const logoutButton = document.getElementById('logout-button');
             const cakesContainer = document.getElementById('cakes-container');
@@ -885,13 +1082,46 @@
             const prevPageBtn = document.getElementById('prev-page');
             const nextPageBtn = document.getElementById('next-page');
             const pageInfo = document.getElementById('page-info');
-
-            // Pagination variables - GIỚI HẠN 10 BÁNH MỖI TRANG
+            const addCakeButton = document.getElementById('add-cake-button');
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            // Pagination variables
             let currentPage = 1;
             const limit = 10;
             let totalPages = 1;
-
-            // Chuyển đổi giữa Đăng nhập và Đăng ký
+            
+            // Navigation
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const section = item.getAttribute('data-section');
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Show corresponding section
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    document.getElementById(`${section}-section`).classList.add('active');
+                    
+                    // Load cakes if cakes section is active
+                    if (section === 'cakes') {
+                        loadCakes();
+                    }
+                });
+            });
+            
+            // Add Cake Button
+            addCakeButton.addEventListener('click', () => {
+                navItems.forEach(nav => nav.classList.remove('active'));
+                document.querySelector('[data-section="add-cake"]').classList.add('active');
+                
+                contentSections.forEach(section => section.classList.remove('active'));
+                document.getElementById('add-cake-section').classList.add('active');
+            });
+            
+            // Switch between login and register forms
             document.getElementById('show-register').addEventListener('click', (e) => {
                 e.preventDefault();
                 loginBox.classList.remove('active');
@@ -906,26 +1136,7 @@
                 messageBox.classList.add('hidden');
             });
 
-            // Chuyển đổi giữa các tab trong profile
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Xóa active class từ tất cả các tab và nội dung
-                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    
-                    // Thêm active class cho tab được click
-                    tab.classList.add('active');
-                    const tabId = tab.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
-                    
-                    // Nếu chuyển đến tab danh sách bánh, load danh sách
-                    if (tabId === 'cakes-list-tab') {
-                        loadCakes();
-                    }
-                });
-            });
-
-            // Hàm hiển thị thông báo
+            // Show message function
             function showMessage(text, isSuccess) {
                 messageBox.textContent = text;
                 messageBox.classList.remove('hidden', 'success', 'error');
@@ -936,7 +1147,7 @@
                 }
             }
 
-            // Hàm hiển thị loading
+            // Show loading function
             function showLoading(button, isLoading) {
                 const text = button.querySelector('span');
                 const loading = button.querySelector('.loading');
@@ -952,7 +1163,7 @@
                 }
             }
 
-            // Hàm gọi API
+            // API call function
             async function apiCall(endpoint, method = 'GET', data = null, useAuth = false) {
                 const url = BASE_URL + endpoint;
                 const headers = {
@@ -992,7 +1203,7 @@
                 }
             }
 
-            // --- Xử lý Đăng Ký ---
+            // Register handler
             registerForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const registerBtn = document.getElementById('register-btn');
@@ -1022,7 +1233,7 @@
                 showLoading(registerBtn, false);
             });
 
-            // --- Xử lý Đăng Nhập ---
+            // Login handler
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const loginBtn = document.getElementById('login-btn');
@@ -1051,64 +1262,93 @@
                 showLoading(loginBtn, false);
             });
             
-            // --- Lấy và Hiển thị Profile ---
+            // Fetch and display profile
             async function fetchProfile() {
                 const result = await apiCall('/api/auth/profile', 'GET', null, true);
 
                 if (result.success) {
                     const user = result.data;
+                    
+                    // Update user info in sidebar
+                    document.getElementById('user-name').textContent = user.full_name;
+                    document.getElementById('user-email').textContent = user.email;
+                    
+                    // Update user avatar in sidebar
+                    const userAvatarImg = document.getElementById('user-avatar-img');
+                    const userAvatarIcon = document.getElementById('user-avatar-icon');
+                    
+                    if (user.avatar) {
+                        userAvatarImg.src = user.avatar;
+                        userAvatarImg.style.display = 'block';
+                        userAvatarIcon.style.display = 'none';
+                    } else {
+                        userAvatarImg.style.display = 'none';
+                        userAvatarIcon.style.display = 'block';
+                    }
+                    
+                    // Update profile section
                     document.getElementById('profile-name').textContent = user.full_name;
                     document.getElementById('profile-email').textContent = user.email;
                     document.getElementById('profile-username').textContent = user.username;
-                    document.getElementById('profile-email-tab').textContent = user.email;
-                    document.getElementById('profile-username-tab').textContent = user.username;
                     
-                    // Xử lý avatar
-                    const avatarImg = document.getElementById('profile-avatar-img');
-                    const avatarIcon = document.getElementById('profile-avatar-icon');
+                    // Update profile avatar
+                    const profileAvatarImg = document.getElementById('profile-avatar-img');
+                    const profileAvatarIcon = document.getElementById('profile-avatar-icon');
                     
                     if (user.avatar) {
-                        avatarImg.src = user.avatar;
-                        avatarImg.style.display = 'block';
-                        avatarIcon.style.display = 'none';
+                        profileAvatarImg.src = user.avatar;
+                        profileAvatarImg.style.display = 'block';
+                        profileAvatarIcon.style.display = 'none';
                     } else {
-                        avatarImg.style.display = 'none';
-                        avatarIcon.style.display = 'block';
+                        profileAvatarImg.style.display = 'none';
+                        profileAvatarIcon.style.display = 'block';
                     }
-
-                    loginBox.classList.remove('active');
-                    registerBox.classList.remove('active');
-                    profileArea.classList.remove('hidden');
-                    messageBox.classList.add('hidden');
                     
-                    // Load danh sách bánh khi đăng nhập thành công
-                    loadCakes();
+                    // Update welcome message
+                    document.getElementById('welcome-message').textContent = `Xin chào, ${user.full_name}!`;
+                    document.getElementById('welcome-subtitle').textContent = "Chúc bạn một ngày ngọt ngào!";
+                    
+                    // Hide auth section and show dashboard
+                    document.getElementById('auth-section').classList.remove('active');
+                    document.getElementById('dashboard-section').classList.add('active');
+                    
+                    // Show sidebar and main content properly
+                    document.getElementById('sidebar').style.display = 'flex';
+                    
+                    messageBox.classList.add('hidden');
                 } else {
                     localStorage.removeItem('authToken');
                     showMessage("🍰 Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.", false);
-                    loginBox.classList.add('active');
-                    profileArea.classList.add('hidden');
+                    document.getElementById('auth-section').classList.add('active');
+                    document.getElementById('sidebar').style.display = 'none';
                 }
             }
 
-            // --- Kiểm tra trạng thái đăng nhập ---
+            // Check login status
             function checkLoginStatus() {
                 if (localStorage.getItem('authToken')) {
                     fetchProfile();
                 } else {
-                    loginBox.classList.add('active');
-                    profileArea.classList.add('hidden');
+                    document.getElementById('auth-section').classList.add('active');
+                    document.getElementById('sidebar').style.display = 'none';
                 }
             }
             
-            // --- Xử lý Đăng Xuất ---
+            // Logout handler
             logoutButton.addEventListener('click', () => {
                 localStorage.removeItem('authToken');
                 showMessage("👋 Bạn đã đăng xuất. Hẹn gặp lại!", true);
                 checkLoginStatus();
+                
+                // Reset navigation
+                navItems.forEach(nav => nav.classList.remove('active'));
+                document.querySelector('[data-section="dashboard"]').classList.add('active');
+                
+                contentSections.forEach(section => section.classList.remove('active'));
+                document.getElementById('auth-section').classList.add('active');
             });
 
-            // --- TÍNH NĂNG MỚI: THÊM BÁNH ---
+            // Add cake handler
             addCakeForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
@@ -1125,14 +1365,22 @@
                 if (result.success) {
                     showMessage('🎂 Thêm bánh thành công!', true);
                     document.getElementById('add-cake-form').reset();
-                    // Chuyển về tab danh sách bánh và load lại
-                    document.querySelector('[data-tab="cakes-list-tab"]').click();
+                    
+                    // Switch to cakes section
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    document.querySelector('[data-section="cakes"]').classList.add('active');
+                    
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    document.getElementById('cakes-section').classList.add('active');
+                    
+                    // Reload cakes list
+                    loadCakes();
                 } else {
                     showMessage(`❌ Thêm bánh thất bại: ${result.message}`, false);
                 }
             });
 
-            // --- TÍNH NĂNG MỚI: HIỂN THỊ DANH SÁCH BÁNH ---
+            // Load cakes function
             async function loadCakes(page = 1) {
                 currentPage = page;
                 const result = await apiCall(`/api/cakes?page=${page}&limit=${limit}`, 'GET');
@@ -1146,6 +1394,7 @@
                 }
             }
 
+            // Display cakes
             function displayCakes(cakes) {
                 cakesContainer.innerHTML = '';
 
@@ -1161,7 +1410,7 @@
                         <img src="${cake.image || 'https://via.placeholder.com/300x180?text=Không+có+hình+ảnh'}" alt="${cake.name}" class="cake-image">
                         <div class="cake-info">
                             <div class="cake-name">${cake.name}</div>
-                            <div class="cake-category">${cake.category}</div>
+                            <div class="cake-category"><i class="fas fa-tag"></i> ${cake.category}</div>
                             <div class="cake-price">${cake.price.toLocaleString()} VNĐ</div>
                             <div class="cake-description">${cake.description || 'Chưa có mô tả'}</div>
                         </div>
@@ -1171,13 +1420,14 @@
                 });
             }
 
+            // Update pagination
             function updatePagination() {
                 pageInfo.textContent = `Trang ${currentPage} / ${totalPages}`;
                 prevPageBtn.disabled = currentPage === 1;
                 nextPageBtn.disabled = currentPage === totalPages;
             }
 
-            // Sự kiện phân trang
+            // Pagination events
             prevPageBtn.addEventListener('click', () => {
                 if (currentPage > 1) {
                     loadCakes(currentPage - 1);
@@ -1190,7 +1440,7 @@
                 }
             });
 
-            // --- TÍNH NĂNG MỚI: XEM CHI TIẾT BÁNH ---
+            // Show cake detail
             async function showCakeDetail(cakeId) {
                 const result = await apiCall(`/api/cakes/${cakeId}`, 'GET');
 
@@ -1201,7 +1451,7 @@
                     document.getElementById('modal-cake-category').textContent = `Danh mục: ${cake.category}`;
                     document.getElementById('modal-cake-price').textContent = `Giá: ${cake.price.toLocaleString()} VNĐ`;
                     document.getElementById('modal-cake-description').textContent = `Mô tả: ${cake.description || 'Chưa có mô tả'}`;
-                    document.getElementById('modal-cake-creator').textContent = `Đăng bởi: ${cake.creator_name} (${cake.creator_username})`;
+                    document.getElementById('modal-cake-creator').innerHTML = `<i class="fas fa-user"></i> Đăng bởi: ${cake.creator_name} (${cake.creator_username})`;
                     
                     cakeDetailModal.style.display = 'flex';
                 } else {
@@ -1209,19 +1459,19 @@
                 }
             }
 
-            // Đóng modal
+            // Close modal
             closeModal.addEventListener('click', () => {
                 cakeDetailModal.style.display = 'none';
             });
 
-            // Đóng modal khi click bên ngoài
+            // Close modal when clicking outside
             window.addEventListener('click', (e) => {
                 if (e.target === cakeDetailModal) {
                     cakeDetailModal.style.display = 'none';
                 }
             });
 
-            // Gọi hàm kiểm tra khi trang load
+            // Initialize the app
             checkLoginStatus();
         });
     </script>
